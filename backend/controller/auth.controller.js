@@ -3,7 +3,7 @@ import createObject from "../util/createResponeOboject.js";
 import bcrypt from "bcrypt"
 import generateToken from "../util/token.js";
 
- async function signUp(req,res){
+ export async function signUp(req,res){
      try {
           // extract user detail from request   
           const {fullname , email , password , phone ,role} = req.body;
@@ -67,3 +67,7 @@ import generateToken from "../util/token.js";
           console.log(error.message);
      }
 }
+
+
+
+
