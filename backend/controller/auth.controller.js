@@ -1,7 +1,7 @@
 import UserModel from "../model/user.model.js";
 import createObject from "../util/createResponeOboject.js";
 import bcrypt from "bcrypt"
-import generateToken from "../util/token.js";
+import { generateAccessToken} from "../util/token.js";
 
  export async function signUp(req,res){
      try {
@@ -48,7 +48,7 @@ import generateToken from "../util/token.js";
          });
      await user.save();
      // generat jwt token for auth 
-     const token = generateToken();
+     const token = generateAccessToken();
     // send cookie and back request ;
     res.cookie("userToken",token , {
         httpOnly:true,

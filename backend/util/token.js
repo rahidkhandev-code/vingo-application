@@ -1,7 +1,12 @@
 import jwt from "jsonwebtoken";
 
- export default function generateToken(userId){
-     const token = jwt.sign({userId},process.env.TOKENSTRING,{expiresIn:"10day"});
-  return token;
-}
+// Generate Access Token
+export function generateAccessToken(userId) {
+    const token = jwt.sign(
+        { userId },
+        process.env.TOKENSTRING,
+        { expiresIn: "10d" }
+    );
+    return token;
+};
 
