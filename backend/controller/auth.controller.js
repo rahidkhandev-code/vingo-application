@@ -6,7 +6,8 @@ import { generateAccessToken} from "../util/token.js";
  export async function signUp(req,res){
      try {
           // extract user detail from request   
-          const {fullname , email , password , phone ,role} = req.body;
+          //const {fullname , email , password , phone ,role} = req.body;
+          return res.send(req.body);
           // check user in data base for creating new account
           const user = await UserModel.findOne({email});
           if(user){
@@ -66,7 +67,7 @@ import { generateAccessToken} from "../util/token.js";
           // print Error 
           console.log(error.message);
      }
-}
+};//complete signUp function;
 
 
 
