@@ -6,10 +6,9 @@ import { generateAccessToken} from "../util/token.js";
  export async function signUp(req,res){
      try {
           // extract user detail from request   
-          //const {fullname , email , password , phone ,role} = req.body;
-          return res.send(req.body);
+          const {fullname , email , password , phone ,role} = req.body;
           // check user in data base for creating new account
-          const user = await UserModel.findOne({email});
+          let user= await UserModel.findOne({email});
           if(user){
                return res.status(400).json(createObject("user already exist.",400, false));
           };
@@ -40,14 +39,13 @@ import { generateAccessToken} from "../util/token.js";
         // hashing user password
         const hashedPassword = await bcrypt.hash(password , 10);
         // storing user in database
-         user = new UserModel.create({
-            fullname,
-            email,
-            password:hashedPassword,
-            phone,
-            role,
+         user = await UserModel.create({
+           fullname,
+           email,
+           password: hashedPassword,
+           phone,
+           role,
          });
-     await user.save();
      // generat jwt token for auth 
      const token = generateAccessToken();
     // send cookie and back request ;
@@ -57,7 +55,7 @@ import { generateAccessToken} from "../util/token.js";
         maxAge:1000 * 60 * 60 * 24 * 10
     })
     .status(201)
-    .jons({
+    .json({
        ...createObject('user created successfully',201,true),
        user:user,
      });

@@ -5,9 +5,11 @@ import authRouter from "./router/auth.route.js"
 import testRouter from  "./router/test.route.js"
 dotenv.configDotenv();
 const app =express();
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 const port = process.env.PORT || 500;
 app.use("/auth/api/",authRouter);
-app.use("/api");
+app.use("/api",testRouter);
 
 
 app.listen(port,()=>{
