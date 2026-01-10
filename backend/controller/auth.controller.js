@@ -93,8 +93,6 @@ import { generateAccessToken} from "../util/token.js";
     const token =  generateAccessToken(user._id);
     res.cookie("userToken",token,{httpOnly:false,secure:false,maxAge:1000 * 60 * 60 * 24 * 10});
     return res.status(200).json({...createObject('user sign in successfully', 200, true) , user:user});
-    
-    
   } catch (error) {
      res.status(500).json(createObject("internal server error" + error));
   }
