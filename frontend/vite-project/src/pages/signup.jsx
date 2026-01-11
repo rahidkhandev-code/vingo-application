@@ -36,6 +36,8 @@ function SignUp() {
           backgroundColor: color.full_white,
         }}
       >
+
+        {/* header section */}
         <header className="header">
           <h1
             className="mb-2 pl-1 text-xl font-bold "
@@ -44,10 +46,17 @@ function SignUp() {
             Vingo
           </h1>
         </header>
+
+       {/* title & discription description */}
         <p className="pl-1 capitalize mb-2 text-gray-500 text-sm">
           create your account to get started with delicious food delivery.
         </p>
+
+
+        {/* form section */}
         <div className="form w-full pl-1">
+
+          {/* fullname input  */}
           <div className="w-full flex flex-col mb-2 ">
             <label
               htmlFor="fullname"
@@ -62,9 +71,12 @@ function SignUp() {
               className="py-2 px-3 outline-0 border border-slate-300 rounded-sm"
               placeholder="Enter your name"
               name="fullName"
+              required
             />
           </div>
 
+
+          {/* email input  */}
           <div className="w-full flex flex-col mb-2">
             <label htmlFor="email" className="block w-full mb-1 text-gray-600">
               Email
@@ -76,9 +88,12 @@ function SignUp() {
               className="py-2 px-3 outline-0 border border-slate-300 rounded-sm"
               placeholder="Enter your email"
               name="email"
+              required
             />
           </div>
 
+
+          {/* phone input  */}
           <div className="w-full flex flex-col mb-4 ">
             <label htmlFor="phone" className="block w-full mb-1 text-gray-600">
               Phone
@@ -90,9 +105,12 @@ function SignUp() {
               className="py-2 px-3 outline-0 border border-slate-300 rounded-sm"
               placeholder="Enter your phone number"
               name="phone"
+              required
             />
           </div>
 
+
+           {/* password input  */}
           <div className="w-full flex flex-col mb-4">
             <label
               htmlFor="password"
@@ -108,6 +126,7 @@ function SignUp() {
                 className="py-2 px-3 w-full outline-0 border border-slate-300 rounded-sm"
                 placeholder="Enter your password"
                 name="password"
+                required
               />
               <button
                 className="absolute right-5 top-[50%] translate-y-[-50%] text-gray-500 cursor-pointer "
@@ -118,6 +137,7 @@ function SignUp() {
             </div>
           </div>
 
+              {/* user role selection */}
           <div className="w-full flex mb-7 flex-wrap gap-2">
             <label className="w-full mb-1 text-gray-600">Select Role</label>
             {userRoles.map((role) => {
@@ -141,6 +161,8 @@ function SignUp() {
             })}
           </div>
 
+
+            {/* signup button  */}
           <div className="w-full flex mb-2  flex-wrap gap-2">
             <button
               onClick={handleSignUp}
@@ -155,6 +177,8 @@ function SignUp() {
             </button>
           </div>
 
+
+              {/* google signup-button  */}
           <div className="w-full flex mb-5  flex-wrap gap-2">
             <button
               className=" flex justify-center items-center gap-2 w-full py-2 px-2 text-md rounded-md font-semibold border-white cursor-pointer hover:opacity-60  transition-colors duration-200"
@@ -170,17 +194,17 @@ function SignUp() {
               <span> Sign Up With Google</span>
             </button>
           </div>
-        </div>
 
-        <div className="w-full flex mb-2 flex-wrap gap-2 flex items-center justify-center">
-          <p className="text-gray-600">
-            Already have an account ? 
-          </p>
-          <Link to="/signin">
-            <span className="text-orange-600 font-semibold">Sign In</span>
-          </Link>
-        </div>
+          {/* signin link */}
+          <div className="w-full flex mb-2 flex-wrap gap-2 flex items-center justify-center">
+            <p className="text-gray-600">Already have an account ?</p>
+            <Link to="/signin">
+              <span className="text-orange-600 font-semibold">Sign In</span>
+            </Link>
+          </div>
+        
 
+        </div>
       </div>
     </div>
   );
