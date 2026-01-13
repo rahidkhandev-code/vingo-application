@@ -4,27 +4,57 @@ import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { baseUrl } from "../App.jsx";
+import { regex } from "../App.jsx";
 const userRoles = ["user","deliveryboy","owner"];
 
 
 
 
+
 function SignUp() {
+  // signup state variables
   const [selectedRole , setSelectedRole] = useState('user');
   const [isShowPassword , setIsShowPassword] =useState(false);
   const [fullName,setFullName] = useState('');
   const [email,setEmail] = useState('');
   const [phone,setPhone] = useState('');
   const [password , setPassword] = useState('');
+  const [errorMessage , setErrorMessage] = useState('');
+ const [signUpSuccessMessage , setSignUpSuccessMessage] = useState('');
 
-   function handleSignUp(){
-     console.log({fullName,email,phone,password,selectedRole});
-     setEmail('');
-      setFullName(''); 
-      setPhone('');
-      setPassword('');
-      setSelectedRole('user');
+
+
+
+// signup handler function;
+    async function handleSignUp(){
+      if(!fullName || !email || !phone || !password ){
+        alert("please fill all the fields");
+        return;
+      };
+      const role = selectedRole;
+      const formData = { fullName, email, phone, password, role };
+      try {
+          const data =await axios.post(`${baseUrl}/auth/api/signup`,{...formData},{withCredentials:true});
+          setSignUpSuccessMessage(data.data.message + "signin to continue.");
+          setErrorMessage('');
+          console.log("signup success",data.message);
+      } catch (error) {
+            if(error.response.data.message){
+               setErrorMessage( error.response.data.message);
+               setSignUpSuccessMessage('');
+               console.log("signup error" , error.response.data.message);
+            }else{
+              console.log("signup error" , error);
+            }
+      };
    };
+
+
+
+
+
   return (
     <div
       className=" min-h-[100vh] border-2 max-w-full flex justify-center items-center"
@@ -36,7 +66,6 @@ function SignUp() {
           backgroundColor: color.full_white,
         }}
       >
-
         {/* header section */}
         <header className="header">
           <h1
@@ -47,15 +76,29 @@ function SignUp() {
           </h1>
         </header>
 
-       {/* title & discription description */}
+        {/* title & discription description */}
         <p className="pl-1 capitalize mb-2 text-gray-500 text-sm">
           create your account to get started with delicious food delivery.
         </p>
 
+        <div>
+          {/* signup success message */}
+          {signUpSuccessMessage && (
+            <p className="ml-1 text-green-500 text-sm text-left capitalize">
+              {signUpSuccessMessage}
+            </p>
+          )}
+
+          {/* signup error message */}
+          {errorMessage && (
+            <p className="pl-1  text-red-500 text-sm text-left">
+              {errorMessage}
+            </p>
+          )}
+        </div>
 
         {/* form section */}
         <div className="form w-full pl-1">
-
           {/* fullname input  */}
           <div className="w-full flex flex-col mb-2 ">
             <label
@@ -75,7 +118,6 @@ function SignUp() {
             />
           </div>
 
-
           {/* email input  */}
           <div className="w-full flex flex-col mb-2">
             <label htmlFor="email" className="block w-full mb-1 text-gray-600">
@@ -91,7 +133,6 @@ function SignUp() {
               required
             />
           </div>
-
 
           {/* phone input  */}
           <div className="w-full flex flex-col mb-4 ">
@@ -109,8 +150,7 @@ function SignUp() {
             />
           </div>
 
-
-           {/* password input  */}
+          {/* password input  */}
           <div className="w-full flex flex-col mb-4">
             <label
               htmlFor="password"
@@ -137,7 +177,7 @@ function SignUp() {
             </div>
           </div>
 
-              {/* user role selection */}
+          {/* user role selection */}
           <div className="w-full flex mb-7 flex-wrap gap-2">
             <label className="w-full mb-1 text-gray-600">Select Role</label>
             {userRoles.map((role) => {
@@ -161,8 +201,7 @@ function SignUp() {
             })}
           </div>
 
-
-            {/* signup button  */}
+          {/* signup button  */}
           <div className="w-full flex mb-2  flex-wrap gap-2">
             <button
               onClick={handleSignUp}
@@ -177,8 +216,7 @@ function SignUp() {
             </button>
           </div>
 
-
-              {/* google signup-button  */}
+          {/* google signup-button  */}
           <div className="w-full flex mb-5  flex-wrap gap-2">
             <button
               className=" flex justify-center items-center gap-2 w-full py-2 px-2 text-md rounded-md font-semibold border-white cursor-pointer hover:opacity-60  transition-colors duration-200"
@@ -202,8 +240,6 @@ function SignUp() {
               <span className="text-orange-600 font-semibold">Sign In</span>
             </Link>
           </div>
-        
-
         </div>
       </div>
     </div>

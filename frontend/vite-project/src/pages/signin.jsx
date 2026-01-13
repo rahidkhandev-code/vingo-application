@@ -7,15 +7,18 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 
+
 function SignIn() {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   function handleSignIn() {
-    console.log({ email, password });
-    setEmail("");
-    setPassword("");
+   try {
+  
+   } catch (error) {
+    
+   }
   };
 
   return (

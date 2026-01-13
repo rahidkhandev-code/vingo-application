@@ -8,9 +8,9 @@ import { generateAccessToken} from "../util/token.js";
  export async function signUp(req,res){
      try {
           // extract user detail from request   
-          const {fullname , email , password , phone ,role} = req.body;
+          const {fullName , email , password , phone ,role} = req.body;
           //email validation ;
-          if(!email.includes('@') || !email.include('.') || !email.includes("gmail" )){
+          if( !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email) ){
             return res.status(400).json(createObject("invalid email", 400, false));
           };
           // check user in data base for creating new account
@@ -25,7 +25,7 @@ import { generateAccessToken} from "../util/token.js";
                     .json(createObject("password must be at least 6 character long", 400, false));
           };
           // validat  user phone number;
-          if(phone.length > 10){
+          if(phone.length > 11){
                   return res
                     .status(400)
                     .json(
@@ -37,16 +37,18 @@ import { generateAccessToken} from "../util/token.js";
                     );
           };
        // validat user fullname length;
-        if(fullname.length < 3){
+
+        if(fullName.length  < 3){
           return res
             .status(400)
             .json(createObject("name must be atleast 3 character", 400, false));
         };
         // hashing user password
         const hashedPassword = await bcrypt.hash(password , 10);
+       
         // storing user in database
          user = await UserModel.create({
-           fullname,
+           fullname: fullName,
            email,
            password: hashedPassword,
            phone,
